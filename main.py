@@ -152,4 +152,4 @@ async def help_command(ctx):
     embed.add_field(name="تاگ یان ڕیپلەی (Reply)", value="بۆتەکە تاگ بکە تا وەڵامی زیرەکت بداتەوە", inline=False)
     await ctx.send(embed=embed)
 
-bot.run('MTU0NTYxOTY3NjczNzA1MjcwMg.GdZAuS.LeL1KZCKPQ5vSAXe9MF9cu4JLSNfwAr4RLeD2w')
+bot.run('MTU0NTYxOTY3NjczNzA1MjcwMg.GcJmlV.gzC4i9pr-PtX9xI2zEVOgwK5br0qlOTEIc-PLY')
