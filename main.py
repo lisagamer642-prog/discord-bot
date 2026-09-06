@@ -1,3 +1,4 @@
+import os
 import random
 import time
 import discord
@@ -17,9 +18,7 @@ user_last_message_time = {}
 @bot.event
 async def on_ready():
   print(f"بۆتەکە ئۆنڵاین بوو وەکو: {bot.user.name}")
-  await bot.change_presence(
-      activity=discord.Game(name="!یارمەتی | Velvet Bot")
-  )
+  await bot.change_presence(activity=discord.Game(name="!یارمەتی | Velvet Bot"))
 
 
 @bot.event
@@ -30,7 +29,7 @@ async def on_message(message):
   user_id = message.author.id
   current_time = time.time()
 
-  # -------------------- بەشی کۆنتڕۆڵی سپام (10-15 چات) --------------------
+  # -------------------- بەشی کۆنتڕۆڵی سپام --------------------
   if user_id not in user_last_message_time:
     user_last_message_time[user_id] = current_time
     user_message_count[user_id] = 1
@@ -41,7 +40,6 @@ async def on_message(message):
       user_message_count[user_id] = 1
       user_last_message_time[user_id] = current_time
 
-  # کاتێک کەسێک لە ناو 15 چسکەدا 10 بۆ 15 چات دەکات
   if user_message_count[user_id] >= 10:
     spam_responses = [
         f"وەی برایم {message.author.mention} هەندە زۆر مەڵێ تایپەکەت سووتا! 😂💀",
@@ -77,7 +75,6 @@ async def on_message(message):
     except Exception:
       pass
 
-  # وەڵامی کۆمیدی کاتێک کەسێک بۆتەکە تاگ دەکات یان ڕیپلەی دەداتەوە
   if is_mentioned or is_reply_to_bot:
     bot_tag_responses = [
         (
@@ -101,7 +98,7 @@ async def on_message(message):
 
   msg = message.content.lower()
 
-  # -------------------- وشە کلیلەکانی تر --------------------
+  # -------------------- وشە کلیلەکان --------------------
   if "حەمە" in msg:
     responses = [
         "گیانی حەمە، چی بڵێی؟ 😂",
@@ -114,9 +111,9 @@ async def on_message(message):
 
   elif "سڵاو" in msg:
     greetings = [
-      f"سڵاو لە تۆش {message.author.mention}! بەخێر بێیت 🌸",
-      f"سڵاو {message.author.mention}، چی هەیە چی نییە؟ 😂",
-      f"ئۆهۆ سڵاو لە {message.author.mention}، فەرموو دانیشە!",
+        f"سڵاو لە تۆش {message.author.mention}! بەخێر بێیت 🌸",
+        f"سڵاو {message.author.mention}، چی هەیە چی نییە؟ 😂",
+        f"ئۆهۆ سڵاو لە {message.author.mention}، فەرموو دانیشە!",
     ]
     await message.channel.send(random.choice(greetings))
     return
@@ -193,4 +190,9 @@ async def help_command(ctx):
   await ctx.send(embed=embed)
 
 
-bot.run("MTU0NTYxOTY3NjczNzA1MjcwMg.GzNkZM.8kS1nJbQBthAJurlqyu_KIDTISJdtvPadCZ3yo")
+# داواکردنی توکن لە ژینگەی DisCloud
+token = os.environ.get("BOT_TOKEN")
+if token:
+  bot.run(token)
+else:
+  print("هەڵە: BOT_TOKEN لە Variables ڕێنەنەکراوە!")
